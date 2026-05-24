@@ -16,6 +16,7 @@ public class StudentDto {
     private Long id;
     private String name;
     private String email;
+    private String avatar;
     private GroupDto group;
     private List<ClubDto> clubs = new ArrayList<>();
 }

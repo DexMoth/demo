@@ -41,7 +41,8 @@ public class StudentService {
         ent.setName(entity.getName());
         ent.setClubs(entity.getClubs());
         ent.setEmail(entity.getEmail());
-        ent.setPassword(entity.getPassword());
+        //ent.setPassword(entity.getPassword());
+        ent.setAvatar(entity.getAvatar());
         return studentRepository.save(ent);
     }
 

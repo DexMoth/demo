@@ -18,6 +18,9 @@ public class StudentEntity extends BaseEntity{
     private String email;
     private String password;
 
+    @Column(columnDefinition = "TEXT")
+    private String avatar;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "group_id")
     private GroupEntity group;
