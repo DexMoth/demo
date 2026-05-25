@@ -32,4 +32,5 @@ public class StudentEntity extends BaseEntity{
             inverseJoinColumns = @JoinColumn(name = "club_id")
     )
     private List<ClubEntity> clubs = new ArrayList<>();
+    private boolean isAdmin;
 }

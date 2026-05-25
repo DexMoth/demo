@@ -43,6 +43,7 @@ public class StudentService {
         ent.setEmail(entity.getEmail());
         //ent.setPassword(entity.getPassword());
         ent.setAvatar(entity.getAvatar());
+        ent.setAdmin(entity.isAdmin());
         return studentRepository.save(ent);
     }
 

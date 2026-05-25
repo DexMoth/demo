@@ -19,4 +19,5 @@ public class StudentDto {
     private String avatar;
     private GroupDto group;
     private List<ClubDto> clubs = new ArrayList<>();
+    private boolean isAdmin;
 }
