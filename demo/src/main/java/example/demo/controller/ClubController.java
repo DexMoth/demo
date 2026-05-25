@@ -76,4 +76,14 @@ public class ClubController {
             @PathVariable(name = "id") Long id) {
         return toDto(clubService.delete(id));
     }
+
+    @PostMapping("/{clubId}/students/{studentId}")
+    public ClubDto addStudentToClub(@PathVariable Long clubId, @PathVariable Long studentId) {
+        return toDto(clubService.addStudentToClub(clubId, studentId));
+    }
+
+    @DeleteMapping("/{clubId}/students/{studentId}")
+    public ClubDto removeStudentFromClub(@PathVariable Long clubId, @PathVariable Long studentId) {
+        return toDto(clubService.removeStudentFromClub(clubId, studentId));
+    }
 }

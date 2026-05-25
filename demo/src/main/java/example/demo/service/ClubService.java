@@ -10,9 +10,11 @@ import java.util.List;
 @Service
 public class ClubService {
     private final ClubRepository clubRepository;
+    private final StudentService studentService;
 
-    public ClubService(ClubRepository clubRepository) {
+    public ClubService(ClubRepository clubRepository, StudentService studentService) {
         this.clubRepository = clubRepository;
+        this.studentService = studentService;
     }
 
     @Transactional
@@ -46,5 +48,32 @@ public class ClubService {
         var ent = clubRepository.findById(id).orElseThrow(() -> new RuntimeException("club not found"));
         clubRepository.delete(ent);
         return ent;
+    }
+
+    @Transactional
+    public ClubEntity addStudentToClub(Long clubId, Long studentId) {
+        ClubEntity club = get(clubId);
+        var student = studentService.get(studentId);
+        club.getStudents().add(student);
+        student.getClubs().add(club);
+        clubRepository.save(club);
+        studentService.update(studentId, student);
+        return club;
+    }
+
+    @Transactional
+    public ClubEntity removeStudentFromClub(Long clubId, Long studentId) {
+        ClubEntity club = get(clubId);
+        var student = studentService.get(studentId);
+        club.getStudents().remove(student);
+        student.getClubs().remove(club);
+        clubRepository.save(club);
+        studentService.update(studentId, student);
+        return club;
+    }
+
+    @Transactional
+    public long getStudentCount(Long clubId) {
+        return clubRepository.countStudentsByClubId(clubId);
     }
 }

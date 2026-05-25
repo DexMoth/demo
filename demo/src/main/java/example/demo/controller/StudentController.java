@@ -1,6 +1,8 @@
 package example.demo.controller;
 
+import example.demo.dto.ClubDto;
 import example.demo.dto.StudentDto;
+import example.demo.entity.ClubEntity;
 import example.demo.entity.StudentEntity;
 import example.demo.service.StudentService;
 import jakarta.transaction.Transactional;
@@ -8,6 +10,7 @@ import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import java.util.stream.Collectors;
 
 import java.util.List;
 
@@ -41,6 +44,18 @@ public class StudentController {
     public StudentDto get(
             @PathVariable(name = "id") Long id){
         return toDto(studentService.get(id));
+    }
+
+    @GetMapping("/{id}/clubs")
+    public List<ClubDto> getStudentClubs(@PathVariable Long id) {
+        StudentEntity student = studentService.get(id);
+        return student.getClubs().stream()
+                .map(this::toClubDto)
+                .collect(Collectors.toList());
+    }
+
+    protected ClubDto toClubDto(ClubEntity ent) {
+        return modelMapper.map(ent, ClubDto.class);
     }
 
     @PutMapping("/{id}")
