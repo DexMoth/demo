@@ -31,6 +31,7 @@ public class AuthController {
         student.setEmail(dto.getEmail());
         student.setPassword(dto.getPassword());
         student.setName(dto.getName());
+        student.setAdmin(dto.isAdmin());
 
         StudentEntity savedStudent = studentRepository.save(student);
 
@@ -42,7 +43,8 @@ public class AuthController {
         response.put("student", Map.of(
                 "id", savedStudent.getId(),
                 "email", savedStudent.getEmail(),
-                "name", savedStudent.getName()
+                "name", savedStudent.getName(),
+                "isAdmin", savedStudent.isAdmin()
         ));
         return ResponseEntity.ok(response);
     }
@@ -72,7 +74,8 @@ public class AuthController {
         response.put("student", Map.of(
                 "id", student.getId(),
                 "email", student.getEmail(),
-                "name", student.getName()
+                "name", student.getName(),
+                "isAdmin", student.isAdmin()
         ));
 
         return ResponseEntity.ok(response);
@@ -90,6 +93,7 @@ public class AuthController {
         response.put("id", student.getId());
         response.put("email", student.getEmail());
         response.put("name", student.getName());
+        response.put("isAdmin", student.isAdmin());
 
         return ResponseEntity.ok(response);
     }
